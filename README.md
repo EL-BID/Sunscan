@@ -24,7 +24,7 @@ SunScan es un proyecto que usa código abierto para ayudar a estimar la energía
 
 SunScan es una herramienta diseñada para utilizar el modelo SAM (Segment Anything by Meta) con el propósito de detectar y segmentar tejados en imágenes satelitales. El enfoque principal es proporcionar una solución eficiente para la identificación automática de áreas de tejados, permitiendo así la estimación de la energía potencial disponible para la instalación de sistemas solares. Este proyecto aborda los desafíos asociados con la detección precisa de tejados en datos satelitales, mejorando la planificación y la implementación de proyectos de energía renovable.
 
-### ***1 : Identificación y segmentación de los tejados ***
+### ***1 : Identificación y segmentación de los tejados***
 
 Este paso implica el uso del modelo SAM (Segment Anything by Meta) para identificar y segmentar las áreas que corresponden a los tejados en una imagen satelital. El modelo se entrena para reconocer patrones y características que representan tejados, y luego aplica este conocimiento para segmentar las áreas relevantes en la imagen.
 
