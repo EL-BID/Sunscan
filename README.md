@@ -44,7 +44,7 @@ Energía Potencial=Area Disponible×Horas de Sol Anuales×Rendimiento del Panel 
 
 Esta fórmula tiene en cuenta factores como la eficiencia del panel solar y del sistema de conversión de energía.
 
-### ***5 : Exportar Shapefile con los Resultados***
+### ***5 : Exportar los Resultados***
 
 Para facilitar la visualización y análisis geoespacial, los resultados pueden ser exportados como un Shapefile. Un Shapefile es un formato de archivo comúnmente utilizado en SIG (Sistemas de Información Geográfica) que almacena información geoespacial. Puedes exportar los límites de los tejados y su información asociada a un Shapefile utilizando herramientas y bibliotecas como Geopandas.
 
