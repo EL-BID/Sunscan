@@ -29,10 +29,12 @@ SunScan es una herramienta diseñada para utilizar el modelo SAM (Segment Anythi
 Instalación
 Clonar el Repositorio:
 
-bash
-Copy code
+```bat
 git clone https://github.com/tuusuario/SolarSatelliteAnalyzer.git
 cd SolarSatelliteAnalyzer
+```
+
+
 Instalación de Dependencias:
 
 bash
