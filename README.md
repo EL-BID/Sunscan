@@ -2,6 +2,8 @@
 
 SunScan es un proyecto que usa código abierto para ayudar a estimar la energía solar potencial sobre tejados usando imágenes satelitales y el modelo SAM (Segment anything by Meta)
 
+***
+<div id='insignias' />
 <a target="_blank" href="https://colab.research.google.com/github/EL-BID/Sunscan/blob/master/notebooks/SunScan.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
