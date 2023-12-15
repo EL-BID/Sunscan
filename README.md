@@ -93,11 +93,11 @@ Para ejecutar el notebook se pueden seguir los pasos que están ahí mismo descr
 
 ## Licencia 
 
-~~~
+
 El siguiente proyecto ha sido financiado por el BID. Ver la siguiente licencia [LICENCIA](https://github.com/EL-BID/Plantilla-de-repositorio/blob/master/LICENSE.md)
 
 Este proyecto utiliza el modelo "Segment Anything by Meta" (SAM), desarrollado por Meta. SAM se distribuye bajo la licencia Apache 2.0 license, y se puede encontrar más información en https://github.com/facebookresearch/segment-anything.
-
+~~~
 @article{kirillov2023segany,
   title={Segment Anything},
   author={Kirillov, Alexander and Mintun, Eric and Ravi, Nikhila and Mao, Hanzi and Rolland, Chloe and Gustafson, Laura and Xiao, Tete and Whitehead, Spencer and Berg, Alexander C. and Lo, Wan-Yen and Doll{\'a}r, Piotr and Girshick, Ross},
