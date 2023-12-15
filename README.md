@@ -84,7 +84,7 @@ Sunscan:
     |--- scripts :
     |        |--- Processing
     |        |--- Estimation
-
+~~~
 
 - notebook : contiene el notebook de ejecución en google colab
 - scripts : contiene las funciones de python que dan soporte al proyecto.
@@ -93,6 +93,7 @@ Para ejecutar el notebook se pueden seguir los pasos que están ahí mismo descr
 
 ## Licencia 
 
+~~~
 El siguiente proyecto ha sido financiado por el BID. Ver la siguiente licencia [LICENCIA](https://github.com/EL-BID/Plantilla-de-repositorio/blob/master/LICENSE.md)
 
 Este proyecto utiliza el modelo "Segment Anything by Meta" (SAM), desarrollado por Meta. SAM se distribuye bajo la licencia Apache 2.0 license, y se puede encontrar más información en https://github.com/facebookresearch/segment-anything.
@@ -103,6 +104,7 @@ Este proyecto utiliza el modelo "Segment Anything by Meta" (SAM), desarrollado p
   journal={arXiv:2304.02643},
   year={2023}
 }
+~~~
 
 
 
