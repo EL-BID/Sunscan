@@ -32,9 +32,11 @@ SunScan es un proyecto que usa código abierto para ayudar a estimar la energía
 
 El repositorio de GitHub SunScan se basa en el uso de notebooks de Google Colab. Este enfoque simplifica notablemente el proceso de interactuar con el modelo, ya que elimina la necesidad de un entorno de desarrollo local, ofrece una metodología única para el uso de sus modelos. 
 
-El notebook proporcionados por SunScan permiten a los usuarios ejecutar todo el modelo directamente desde el repositorio. Este método es especialmente útil para aquellos que no están familiarizados con la configuración y mantenimiento de entornos de programación complejos. Además, al ser una plataforma basada en la nube, Google Colab facilita el acceso desde cualquier lugar y en cualquier momento, sin la necesidad de hardware específico.
+Una característica de SunScan es su uso de la herramienta tms2geotif para acceder a imágenes de Google Satellite. Esto permite a los usuarios seleccionar áreas específicas para análisis mediante la utilización de map tiles de Google Satellite. Estos tiles proporcionan datos detallados y actualizados, lo que es crucial para un análisis preciso y relevante.
 
-Esta estructura de SunScan democratiza el acceso al modelo, haciéndolo accesible para un público más amplio. Los usuarios con diferentes niveles de habilidad técnica pueden experimentar y utilizar las funcionalidades de SunScan sin enfrentarse a barreras técnicas significativas. En resumen, SunScan combina la facilidad de uso de Google Colab con la potencia de sus modelos alojados en GitHub, creando una experiencia de usuario más inclusiva y accesible.
+El proceso comienza con el usuario eligiendo un área de interés en Google Satellite usando leafmap. A través de Google Colab, SunScan utiliza tms2geotif para convertir estas selecciones en imágenes GeoTIFF. Estas imágenes son luego accesibles para el análisis, proporcionando una base sólida para correr el modelo.
+
+Este método no solo hace que el análisis sea más accesible y también más personalizable. Los usuarios pueden enfocarse en regiones específicas que sean de su interés, lo que permite una gran flexibilidad en la investigación y el análisis de datos. Esta característica es particularmente útil para proyectos que requieren un enfoque geográfico específico
 
 <div id='Modelo' />
 
