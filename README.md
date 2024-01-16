@@ -15,6 +15,8 @@ SunScan es un proyecto que usa código abierto para ayudar a estimar la energía
 
 * [Descripción del proyecto](#descripción-del-proyecto)
 
+* [Modelo](#Modelo)
+
 * [Guía de instalación](#configuracion-ambiente)
 
 * [Guía de usuario](#demostracion-del-proyecto)
@@ -26,7 +28,17 @@ SunScan es un proyecto que usa código abierto para ayudar a estimar la energía
 ***
 <div id='descripción-del-proyecto' />
 
-## Descripción del Proyecto
+## Descripción del proyecto
+
+El repositorio de GitHub SunScan se basa en el uso de notebooks de Google Colab. Este enfoque simplifica notablemente el proceso de interactuar con el modelo, ya que elimina la necesidad de un entorno de desarrollo local, ofrece una metodología única para el uso de sus modelos. 
+
+El notebook proporcionados por SunScan permiten a los usuarios ejecutar todo el modelo directamente desde el repositorio. Este método es especialmente útil para aquellos que no están familiarizados con la configuración y mantenimiento de entornos de programación complejos. Además, al ser una plataforma basada en la nube, Google Colab facilita el acceso desde cualquier lugar y en cualquier momento, sin la necesidad de hardware específico.
+
+Esta estructura de SunScan democratiza el acceso al modelo, haciéndolo accesible para un público más amplio. Los usuarios con diferentes niveles de habilidad técnica pueden experimentar y utilizar las funcionalidades de SunScan sin enfrentarse a barreras técnicas significativas. En resumen, SunScan combina la facilidad de uso de Google Colab con la potencia de sus modelos alojados en GitHub, creando una experiencia de usuario más inclusiva y accesible.
+
+<div id='Modelo' />
+
+## Modelo
 
 SunScan es una herramienta diseñada para utilizar el modelo SAM (Segment Anything by Meta) con el propósito de detectar y segmentar tejados en imágenes satelitales. El enfoque principal es proporcionar una solución eficiente para la identificación automática de áreas de tejados, permitiendo así la estimación de la energía potencial disponible para la instalación de sistemas solares. Este proyecto aborda los desafíos asociados con la detección precisa de tejados en datos satelitales, mejorando la planificación y la implementación de proyectos de energía renovable.
 
