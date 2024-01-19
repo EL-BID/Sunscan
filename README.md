@@ -23,8 +23,6 @@ SunScan es un proyecto que usa código abierto para ayudar a estimar la energía
 
 * [Licencia](#licencia)
 
-* [Limitación de responsabilidades](#limitación-de-responsabilidades)
-
 ***
 <div id='descripción-del-proyecto' />
 
@@ -116,7 +114,4 @@ Licencia y Reconocimiento
 Contribuciones
 Invitamos a las contribuciones a este proyecto, siempre y cuando se adhieran a los términos de la licencia Apache-2.0 y a las directrices de este repositorio.
 
-***
-
-<div id='limitación-de-responsabilidades' />
 
