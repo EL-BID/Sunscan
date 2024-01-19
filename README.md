@@ -95,9 +95,7 @@ El proyecto contiene la siguiente estructura de carpetas:
 ~~~
 Sunscan:
     |--- notebook
-    |--- scripts :
-    |        |--- Processing
-    |        |--- Estimation
+    |--- scripts
 ~~~
 
 - notebook : contiene el notebook de ejecución en google colab
