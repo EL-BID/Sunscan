@@ -105,7 +105,7 @@ Para ejecutar el notebook se pueden seguir los pasos que están ahí mismo descr
 
 ## Licencia 
 
-Este proyecto utiliza el modelo "Segment Anything" de Meta para la segmentación de tejados. El modelo se utiliza bajo los términos de la licencia Apache-2.0, que permite el uso, modificación y distribución del software bajo ciertas condiciones.
+Este proyecto utiliza el modelo "Segment Anything" de Meta para la segmentación de tejados. Este modelo se distribuye bajo la licencia Apache-2.0. Se debe dar crédito apropiado a Meta por el desarrollo del modelo, y cualquier distribución del software modificado debe mantener la misma licencia. Más información sobre la licencia se puede encontrar en el repositorio oficial de Segment Anything.
 
 ***Propósito:*** 
 Este modelo se aplica para la segmentación precisa de tejados en imágenes, con fines [especificar, por ejemplo, de investigación, desarrollo de herramientas, etc.].
