@@ -9,7 +9,7 @@ import geopandas as gpd
 import pyproj
 
 
-def sunlight_hours(lat, lon, start, end, excel_out):
+def sunlight_hours(lat, lon, start, end):
     data = {}
     data['sunrise'] = []
     data['sunset'] = []
@@ -43,7 +43,6 @@ def sunlight_hours(lat, lon, start, end, excel_out):
                                   pd.to_timedelta(df['sunrise'].astype(str))).dt.total_seconds()
     df['sunlight_hours'] = (df['dif_sec'] / 60) / 60
     sunlight_hours_sum = np.sum((df['dif_sec'] / 60) / 60)
-    df.to_excel(excel_out, index=False)
     return sunlight_hours_sum
 
 
