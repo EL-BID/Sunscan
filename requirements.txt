@@ -1,5 +1,5 @@
 leafmap
-localtileserver
+localtileserver==0.7.2
 ipysheet
 mss
 geopy
