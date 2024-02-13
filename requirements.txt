@@ -1,4 +1,4 @@
-leafmap
+leafmap==0.30.1
 localtileserver==0.7.2
 ipysheet
 mss
