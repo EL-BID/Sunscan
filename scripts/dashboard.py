@@ -3,9 +3,9 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-def dashboard(results_fol,top_n):
+def dashboard(results_excel,top_n):
 
-  data = pd.read_excel(ua.ultimo_archivo(results_fol, '.xlsx'))
+  data = pd.read_excel(results_excel)
 
   # Mapa de Energía Acumulada
   fig_map = px.scatter_mapbox(data, lat="latitude", lon="longitude", color="Energia_acum",
@@ -13,7 +13,7 @@ def dashboard(results_fol,top_n):
                               mapbox_style="carto-positron", title="Ubicación y Energía Acumulada")
   fig_map.show()
 
-  top = data.nlargest(10, 'Energia_anual')
+  top = data.nlargest(top_n, 'Energia_anual')
   fig_table = go.Figure(data=[go.Table(
       header=dict(values=['Índice', 'Energia_anual'],
                   fill_color='paleturquoise',
