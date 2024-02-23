@@ -1,5 +1,4 @@
 leafmap==0.30.1
-localtileserver==0.7.2
 ipysheet==0.7.0
 mss==9.0.1
 geopy==2.4.1
@@ -10,3 +9,6 @@ geopandas==0.14.3
 astral==3.2
 torch==2.1.0
 torchvision==0.16.2
+chardet==5.2.0
+charset-normalizer==3.3.2
+gdal==3.8.4
