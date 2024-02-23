@@ -3,8 +3,6 @@ from samgeo.text_sam import LangSAM
 import leafmap
 import city_from_coord as cfc
 import ultimo_archivo as ua
-import sunlight_hours as sunh
-import solar_energy_shp as ses
 import datetime
 import shutil
 
