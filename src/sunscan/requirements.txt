@@ -1,9 +1,0 @@
-astral==3.2
-groundingdino-py==0.4.0
-leafmap==0.31.3
-openpyxl==3.1.2
-segment-geospatial==0.10.2
-torch==2.1.0
-
-# gdal==3.8.4
-gdal==3.6.2
