@@ -84,9 +84,8 @@ def processing_routine(payload: dict, model_checkpoint: Path):
             model_checkpoint
         )
 
-        # TODO: Check these parameters.
-        start = datetime.datetime(2024, 1, 1)
-        end = datetime.datetime(2024, 12, 31)
+        start = datetime.datetime.min.replace(year=datetime.date.today().year)
+        end = start.replace(month=12, day=31)
 
         solar_energy = calculate_solar_energy(
             house_roofs_shp_path,
@@ -98,10 +97,6 @@ def processing_routine(payload: dict, model_checkpoint: Path):
             payload['dimension_factor']
         )
 
-        # TODO: WARNING:fiona._env:Normalized/laundered field name:
-        # 'Energia_acum' to 'Energia_ac'
-        # 'Energia_diaria' to 'Energia_di'
-        # 'Energia_anual' to 'Energia_an'
         zip_shp_result(solar_energy, OUTPUTS_BASE_PATH / 'solar_energy_shp.zip')
         solar_energy.to_excel(OUTPUTS_BASE_PATH / 'solar_energy.xlsx')
 

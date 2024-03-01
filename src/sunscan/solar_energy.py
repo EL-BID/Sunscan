@@ -78,9 +78,7 @@ def calculate_solar_energy(shp_in, start, end, panel_size, area_disp, panel_pot,
 
     delta = end - start
 
-    # TODO: Check these column names.
-    gdf['Energia_acum'] = panel_pot * gdf['horas_acum'] * factor_dim * gdf['n_paneles']
-    gdf['Energia_diaria'] = gdf['Energia_acum'] / (delta.days + 1)
-    gdf['Energia_anual'] = gdf['Energia_diaria'] * 365
+    gdf['ener_anual'] = panel_pot * gdf['horas_acum'] * factor_dim * gdf['n_paneles']
+    gdf['ener_dia'] = gdf['ener_anual'] / (delta.days + 1)
 
     return gdf
