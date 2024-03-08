@@ -64,35 +64,30 @@ Resources:
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
-              - 
-                Effect: Allow
+              - Effect: Allow
                 Action:
                   - xray:PutTraceSegments
                   - xray:PutTelemetryRecords
                   - xray:GetSamplingRules
                   - xray:GetSamplingTargets
-                Resource: '*'
-              - 
-                Effect: Allow
+                Resource: '*' # NOSONAR
+              - Effect: Allow
                 Action:
                   - events:PutTargets
                   - events:PutRule
                   - events:DescribeRule
                 Resource: !Sub 'arn:aws:events:${AWS::Region}:${AWS::AccountId}:rule/StepFunctionsGetEventsForSageMakerProcessingJobsRule'
-              - 
-                Effect: Allow
+              - Effect: Allow
                 Action: lambda:InvokeFunction
                 Resource: !GetAtt BuildPayloadFunction.Arn
-              - 
-                Effect: Allow
+              - Effect: Allow
                 Action:
                   - sagemaker:CreateProcessingJob
                   - sagemaker:DescribeProcessingJob
                   - sagemaker:StopProcessingJob
                   - sagemaker:AddTags
                 Resource: !Sub 'arn:aws:sagemaker:${AWS::Region}:${AWS::AccountId}:processing-job/*'
-              - 
-                Effect: Allow
+              - Effect: Allow
                 Action: iam:PassRole
                 Resource: !GetAtt SageMakerRole.Arn
 
@@ -125,7 +120,7 @@ Resources:
                   - logs:DescribeLogStreams
                   - logs:PutLogEvents
                   - ecr:GetAuthorizationToken
-                Resource: '*'
+                Resource: '*' # NOSONAR
               - Effect: Allow
                 Action:
                   - ecr:BatchCheckLayerAvailability
@@ -164,6 +159,12 @@ Resources:
         Variables:
           ATTACHMENTS_BUCKET_NAME: !Ref AttachmentsBucketName
           BASE_CODE_S3URI: !Sub 's3://${ArtifactsBucketName}/sunscan/sagemaker/roof-energy'
+
+  BuildPayloadFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/lambda/${BuildPayloadFunction}'
+      RetentionInDays: 30
 
   RoofEnergyInferenceWorkflow:
     Type: AWS::Serverless::StateMachine
