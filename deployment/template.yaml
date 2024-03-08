@@ -179,8 +179,8 @@ Resources:
         Mode: !Ref Mode
         BuildPayloadFunctionArn: !GetAtt BuildPayloadFunction.Arn
         InferenceRoleArn: !GetAtt SageMakerRole.Arn
-        InferenceImageUri: !GetAtt RoofEnergyInferenceRepository.RepositoryUri
-        InferenceInstanceType: ml.m5.xlarge
+        InferenceImageUri: !Sub '${RoofEnergyInferenceRepository.RepositoryUri}:2.1.0-gpu-py310'
+        InferenceInstanceType: ml.p3.2xlarge
       Tags:
         Application: Sunscan
         Product: Infradigital

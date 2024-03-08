@@ -1,7 +1,7 @@
 # https://aws.amazon.com/cn/releasenotes/available-deep-learning-containers-images/
 # https://github.com/aws/deep-learning-containers/blob/master/available_images.md
 
-FROM 763104351884.dkr.ecr.us-east-1.amazonaws.com/pytorch-training:2.1.0-cpu-py310-ubuntu20.04-sagemaker
+FROM 763104351884.dkr.ecr.us-east-1.amazonaws.com/pytorch-training:2.1.0-gpu-py310-cu121-ubuntu20.04-sagemaker
 
 RUN apt update && apt install -y binutils libproj-dev gdal-bin libgdal-dev
 
