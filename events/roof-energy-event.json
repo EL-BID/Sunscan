@@ -1,0 +1,27 @@
+{
+    "version": "0",
+    "id": "8728a076-d5d1-c624-124a-946b1b65e33b",
+    "detail-type": "Infradigital Application Task Requested",
+    "source": "infra.core",
+    "account": "123456789123",
+    "time": "2023-05-01T19:08:34Z",
+    "region": "us-east-1",
+    "resources": [
+        "arn:aws:states:us-east-1:123456789123:stateMachine:infra-task-manager-dev",
+        "arn:aws:states:us-east-1:123456789123:execution:infra-task-manager-dev:05cd1ed4-6277-383d-a3ef-e36e63862e57"
+    ],
+    "detail": {
+        "TaskKey": "a4066ee9-09e3-4f58-895a-6ef9f0445456",
+        "AppServiceSlug": "sunscan#roof_energy_inference",
+        "UserSub": "2ecf2bb8-c700-4073-9d48-2745815dcd0d",
+        "TenantId": "iadb:ine:tsp",
+        "AccessLevel": "user",
+        "Name": "Miami neighbourhood",
+        "Inputs": {
+            "BoundingBox": [ -73.2316, 9.587, -73.2309, 9.5875 ],
+            "PanelSize": 4,
+            "AvailableArea": 0.5,
+            "PanelPower": 400
+        }
+    }
+}

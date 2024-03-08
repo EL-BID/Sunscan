@@ -1,0 +1,45 @@
+Comment: sunscan#roof_energy_inference task inference workflow.
+StartAt: BuildPayload
+
+States:
+  BuildPayload:
+    Type: Task
+    Resource: ${BuildPayloadFunctionArn}
+    Comment: Build input payload to execute SageMaker inference.
+    InputPath: $.detail
+    ResultPath: $.InferenceParameters
+    Next: InferenceRoofEnergy
+
+  InferenceRoofEnergy:
+    Type: Task
+    Resource: arn:aws:states:::sagemaker:createProcessingJob.sync
+    Parameters:
+      RoleArn: ${InferenceRoleArn}
+      ProcessingJobName.$: $.InferenceParameters.JobName
+      ProcessingInputs.$: $.InferenceParameters.InputConfig
+      ProcessingOutputConfig:
+        Outputs.$: $.InferenceParameters.OutputConfig
+      AppSpecification:
+        ContainerEntrypoint: [python, /opt/ml/processing/code/entrypoint.py]
+        ContainerArguments.$: $.InferenceParameters.ContainerArguments
+        ImageUri: ${InferenceImageUri}
+      ProcessingResources:
+        ClusterConfig:
+          InstanceCount: 1
+          InstanceType: ${InferenceInstanceType}
+          VolumeSizeInGB: 30
+      Tags:
+        - Key: Application
+          Value: Sunscan
+        - Key: Product
+          Value: Infradigital
+        - Key: Environment
+          Value: ${Mode}
+    ResultSelector:
+      ProcessingJobArn.$: $.ProcessingJobArn
+      ProcessingJobName.$: $.ProcessingJobName
+      ProcessingJobStatus.$: $.ProcessingJobStatus
+      ProcessingStartTime.$: $.ProcessingStartTime
+      ProcessingEndTime.$: $.ProcessingEndTime
+    ResultPath: $.InferenceResult
+    End: True
