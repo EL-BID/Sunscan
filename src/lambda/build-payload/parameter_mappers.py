@@ -1,4 +1,4 @@
-import datetime as dt
+from datetime import datetime, timezone
 
 def get_unique_job_name(uuid_key: str, *references: list):
     """ Returns a unique job name based on a given uuid_key
@@ -6,7 +6,7 @@ def get_unique_job_name(uuid_key: str, *references: list):
 
     return '-'.join([
         *uuid_key.split('-')[:2],
-        dt.datetime.utcnow().strftime('%Y%m%d-%H%M%S'),
+        datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S'),
         *references
     ])[:63]
 
