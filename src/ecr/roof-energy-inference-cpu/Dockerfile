@@ -1,9 +1,7 @@
-# https://aws.amazon.com/releasenotes/available-deep-learning-containers-images/
+# https://docs.aws.amazon.com/deep-learning-containers/latest/devguide/deep-learning-containers-images.html
 # https://github.com/aws/deep-learning-containers/blob/master/available_images.md
 
 FROM 763104351884.dkr.ecr.us-east-1.amazonaws.com/pytorch-training:2.1.0-cpu-py310-ubuntu20.04-sagemaker
-
-# RUN adduser --system --group nonroot
 
 RUN apt update \
     && apt install --no-install-recommends -y binutils libproj-dev gdal-bin libgdal-dev \
@@ -14,5 +12,3 @@ RUN python3 -m pip install --upgrade pip --no-cache-dir \
 
 RUN pip3 install setuptools==57.5.0 \
     && pip3 install gdal==$(gdal-config --version)
-
-# USER nonroot
