@@ -1,0 +1,188 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: sunscan-serverless
+
+Parameters:
+  AttachmentsBucketName:
+    Type: String
+    Description: Attachments bucket name
+  ArtifactsBucketName:
+    Type: String
+    Description: Artifacts bucket name
+  Mode:
+    Type: String
+    Description: Environment context
+    AllowedValues:
+      - dev
+      - test
+      - prod
+
+
+Globals:
+  Function:
+    Timeout: 30
+    Runtime: python3.10
+    Environment:
+      Variables:
+        LOG_LEVEL: INFO
+        POWERTOOLS_LOGGER_SAMPLE_RATE: 0.1
+        POWERTOOLS_LOGGER_LOG_EVENT: true
+
+
+Resources:
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /service-role/
+      RoleName: !Sub 'SunscanLambdaRole-${Mode}'
+      Description: Sunscan Lambda service role.
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  StatesRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /service-role/
+      RoleName: !Sub 'SunscanStatesRole-${Mode}'
+      Description: Sunscan States service role.
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: states.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: sunscan-states-policy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - xray:PutTraceSegments
+                  - xray:PutTelemetryRecords
+                  - xray:GetSamplingRules
+                  - xray:GetSamplingTargets
+                Resource: '*' # NOSONAR
+              - Effect: Allow
+                Action:
+                  - events:PutTargets
+                  - events:PutRule
+                  - events:DescribeRule
+                Resource: !Sub 'arn:aws:events:${AWS::Region}:${AWS::AccountId}:rule/StepFunctionsGetEventsForSageMakerProcessingJobsRule'
+              - Effect: Allow
+                Action: lambda:InvokeFunction
+                Resource: !GetAtt BuildPayloadFunction.Arn
+              - Effect: Allow
+                Action:
+                  - sagemaker:CreateProcessingJob
+                  - sagemaker:DescribeProcessingJob
+                  - sagemaker:StopProcessingJob
+                  - sagemaker:AddTags
+                Resource: !Sub 'arn:aws:sagemaker:${AWS::Region}:${AWS::AccountId}:processing-job/*'
+              - Effect: Allow
+                Action: iam:PassRole
+                Resource: !GetAtt SageMakerRole.Arn
+
+  SageMakerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /service-role/
+      RoleName: !Sub 'SunscanSageMakerRole-${Mode}'
+      Description: Sunscan SageMaker service role.
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: sagemaker.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/AWSXrayWriteOnlyAccess
+      Policies:
+        - PolicyName: sunscan-lambda-policy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - cloudwatch:PutMetricData
+                  - logs:CreateLogStream
+                  - logs:CreateLogGroup
+                  - logs:DescribeLogStreams
+                  - logs:PutLogEvents
+                  - ecr:GetAuthorizationToken
+                Resource: '*' # NOSONAR
+              - Effect: Allow
+                Action:
+                  - ecr:BatchCheckLayerAvailability
+                  - ecr:GetDownloadUrlForLayer
+                  - ecr:BatchGetImage
+                Resource: !GetAtt RoofEnergyInferenceRepository.Arn
+              - Effect: Allow
+                Action: s3:ListBucket
+                Resource:
+                  - !Sub 'arn:aws:s3:::${AttachmentsBucketName}'
+                  - !Sub 'arn:aws:s3:::${ArtifactsBucketName}'
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                Resource: !Sub 'arn:aws:s3:::${AttachmentsBucketName}/sunscan/*'
+              - Effect: Allow
+                Action: s3:GetObject
+                Resource: !Sub 'arn:aws:s3:::${ArtifactsBucketName}/sunscan/sagemaker/*'
+
+  RoofEnergyInferenceRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      ImageTagMutability: MUTABLE
+      RepositoryName: !Sub 'sunscan/roof-energy-inference-${Mode}'
+
+  BuildPayloadFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt LambdaRole.Arn
+      FunctionName: !Sub 'sunscan-build-payload-${Mode}'
+      Description: Prepare input data to parameters on workflow.
+      CodeUri: ../src/lambda/build-payload
+      Handler: lambda_function.lambda_handler
+      Environment:
+        Variables:
+          ATTACHMENTS_BUCKET_NAME: !Ref AttachmentsBucketName
+          BASE_CODE_S3URI: !Sub 's3://${ArtifactsBucketName}/sunscan/sagemaker/roof-energy'
+
+  BuildPayloadFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/lambda/${BuildPayloadFunction}'
+      RetentionInDays: 30
+
+  RoofEnergyInferenceWorkflow:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      Role: !GetAtt StatesRole.Arn
+      Name: !Sub 'sunscan-roof-energy-inference-workflow-${Mode}'
+      Definition:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: ../src/stepfunctions/RoofEnergyInferenceWorkflow.yaml
+      DefinitionSubstitutions:
+        Mode: !Ref Mode
+        BuildPayloadFunctionArn: !GetAtt BuildPayloadFunction.Arn
+        InferenceRoleArn: !GetAtt SageMakerRole.Arn
+        InferenceImageUri: !Sub '${RoofEnergyInferenceRepository.RepositoryUri}:2.1.0-gpu-py310'
+        InferenceInstanceType: ml.p3.2xlarge
+      Tags:
+        Application: Sunscan
+        Product: Infradigital
+        Environment: !Ref Mode

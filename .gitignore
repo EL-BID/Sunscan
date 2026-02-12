@@ -95,3 +95,4 @@ _build/
 src/*/_version.py
 data/
 models/
+.aws-sam/
