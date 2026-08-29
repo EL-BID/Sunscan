@@ -1,0 +1,30 @@
+# More information about the configuration file can be found here:
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+version: 0.1
+
+default:
+  global:
+    parameters:
+      stack_name: sunscan-serverless-dev
+  build:
+    parameters:
+      cached: true
+      parallel: true
+  validate:
+    parameters:
+      lint: true
+  deploy:
+    parameters:
+      region: us-east-1
+      s3_bucket: project-deployment-templates
+      s3_prefix: sunscan-serverless
+      capabilities:
+        - CAPABILITY_NAMED_IAM
+        - CAPABILITY_AUTO_EXPAND
+      tags:
+        - Product=Sunscan
+        - Environment=dev
+      parameter_overrides:
+        - Mode=dev
+        - AttachmentsBucketName=infra-attachments-dev
+        - ArtifactsBucketName=infra-artifacts-dev
